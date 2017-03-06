@@ -1,0 +1,107 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/radio-button-list-plus/radio-button-list-plus.html">
+<script src="../../bower_components/webcomponentsjs/webcomponents.js"></script>
+
+<dom-module id="radio-button-list-demo-plus-app">
+  <template>
+    <style>
+      /* EXAMPLE */
+      :host{
+        --option-button-plus-button-container:{
+            margin: 4px;
+         };
+        --option-button-plus-button:{
+            margin-right: 4px;
+            font-size:var(--option-button-plus-font-size);
+            border: 2px #505050 solid;
+        };
+        --option-button-plus-button-selected:{
+            background-color: transparent;
+        };
+        --option-button-plus-button-unselected:{
+        };
+        --option-button-plus-mark-color:#505050;
+        --option-button-plus-label:{
+            color:#505050;
+            margin-left: 4px;
+            font-size:var(--option-button-plus-font-size)
+        };
+        --option-button-plus-label-checked:{
+        };
+        --option-button-plus-label-unchecked:{
+        };
+        --option-button-plus-font-size:14px;
+      }
+
+      .demo-style{
+          font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+      }
+      .selected{
+          text-align: center;
+          border: 2px #579653 solid;
+          border-radius:5px;
+          font-size: 20px;
+          width: 260px;
+      }
+      .index{
+        font-size:16px;
+      }
+    </style>
+    <!-- HTML -->
+    <div class="demo-style">
+      <h1>A &ltradio-button-list-plus&gt</h1>
+      <radio-button-list-plus
+        items="{{items}}"
+        item-selected="{{itemSelected}}"
+        index-selected="{{indexSelected}}"
+        rules="[[rules]]"
+        attr-for-select="[[attrForSelect]]">
+      </radio-button-list-plus>
+      <h1>You have chosen</h1>
+      <div class="selected">
+        [[itemSelected.label]]
+      </div>
+      <p class="index">Index of chosen values: [[indexSelected]]</p>
+    </div>
+  </template>
+
+  <!-- JAVASCRIPT (POLYMER) -->
+  <script>
+    Polymer({
+      is: 'radio-button-list-demo-plus-app',
+
+      properties:{
+        attrForSelect:{
+          type:String,
+          value:"label"
+        },
+        items:{
+          type:Array,
+          value:[
+            {label:"Larry Page",selected:false},
+            {label:"Linus Torvalds",selected:true},
+            {label:"Steve Jobs",selected:false},
+            {label:"Bill Gates",selected:false},
+            {label:"Simone Brocco",selected:false}
+          ]
+        },
+        itemChecked:{
+          type:Object,
+          value:null
+        },
+        indexChecked:{
+          type:Number,
+          value:null
+        },
+        rules:{
+          type:Array,
+          value:{
+            "Simone Brocco":{
+              disabled:true
+            }
+          }
+        }
+      }
+    });
+  </script>
+</dom-module>

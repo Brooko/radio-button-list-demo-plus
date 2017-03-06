@@ -1,0 +1,126 @@
+<link rel="stylesheet" href="style/css/font-awesome.min.css">
+<!--
+`option-button-plus`
+A simple option-button
+-->
+<dom-module id="option-button-plus">
+  <template>
+    <style>
+        .button-container {
+        @apply --option-button-plus-button-container;
+            display:flex;
+            flex-direction:row;
+            align-items:center;
+            width: 100%;
+            /*UN-SELECT BUTTON*/
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        /* BUTTON PROPERTIES */
+        .button{
+        @apply --option-button-plus-button;
+            min-width:calc(var(--option-button-plus-font-size)*1.2);
+            max-width:calc(var(--option-button-plus-font-size)*1.2);
+            min-height:calc(var(--option-button-plus-font-size)*1.2);
+            max-height:calc(var(--option-button-plus-font-size)*1.2);
+            line-height:calc(var(--option-button-plus-font-size)*1.2);
+            text-align: center;
+            cursor:pointer;
+            border:2px grey solid;
+
+        }
+        .button[selected]{
+        @apply --option-button-plus-button-selected;
+        }
+        .button:not([selected]) {
+        @apply --option-button-plus-button-unselected;
+        }
+        .fa:not([disabled]){
+            color:var(--option-button-plus-mark-color);
+
+
+        }
+        .checkbox{
+            border-radius:20%;
+        }
+
+        .radio{
+            border-radius:50%;
+        }
+        /* LABEL PROPERTIES */
+        .label {
+        @apply --option-button-plus-label;
+            text-align:left;
+        }
+        .label[selected]{
+        @apply --option-button-plus-label-selected;
+        }
+        .label:not([selected]){
+        @apply --option-button-plus-label-unselected;
+        }
+
+        /* DISABLED PROPERTIES */
+        .button-container[disabled] > div {
+            color:#bbbbbb !important;
+            border-color:#bbbbbb !important;
+            background-color: transparent !important;
+        }
+
+    </style>
+
+    <div class="button-container" disabled$="[[disabled]]">
+        <div class$="[[generateButtonClass(selected)]]"  on-click="_controlClick" selected$="[[selected]]">
+            <i class$=[[generateButtonIconClass(selected)]] disabled$="[[disabled]]"></i>
+        </div>
+        <div class="label" selected$="[[selected]]">
+            [[label]]
+        </div>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+        is: 'option-button-plus',
+
+        _controlClick:function(){
+            if(!this.disabled) {
+                this.fire('change',!this.selected);
+                this.set("selected",(this.buttonType == 'checkbox' ? !this.selected : true));
+            }
+        },
+
+        generateButtonClass:function(){
+            return (this.buttonType == 'checkbox' ? "button checkbox" : "button radio");
+        },
+
+        generateButtonIconClass:function(selected){
+            if(selected) {
+                return (this.buttonType == 'checkbox' ? "fa fa-check" : "fa fa-circle");
+            }
+        },
+        properties:{
+          buttonType:{
+             type:String,
+             value:null
+          },
+          selected:{
+              type:Boolean,
+              value:false,
+              notify:true,
+              reflectToAttribute:true
+          },
+          disabled:{
+              type:Boolean,
+              value:false,
+              reflectToAttribute:true
+          },
+          label:{
+              type:String,
+              value:"label"
+          }
+        }
+    });
+  </script>
+</dom-module>

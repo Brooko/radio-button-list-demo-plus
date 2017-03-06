@@ -1,0 +1,7 @@
+{
+  "name": "radio-button-list-demo-plus",
+  "short_name": "radio-button-list-demo-plus",
+  "description": "The demo of radio-button-list-plus",
+  "start_url": "/",
+  "display": "standalone"
+}
